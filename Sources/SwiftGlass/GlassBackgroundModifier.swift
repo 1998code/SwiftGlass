@@ -70,23 +70,31 @@ public struct GlassBackgroundModifier: ViewModifier {
     /// 2. Gradient stroke for edge highlighting
     /// 3. Shadow for depth perception
     public func body(content: Content) -> some View {
-        content
-            .background(material) // Use the specified material for the frosted glass base
-            .cornerRadius(radius) // Rounds the corners
-            .overlay(
-                // Adds subtle gradient border for dimensional effect
-                RoundedRectangle(cornerRadius: radius)
-                    .stroke(
-                        LinearGradient(
-                            gradient: Gradient(colors: gradientColors()),
-                            startPoint: .topLeading,
-                            endPoint: .bottomTrailing
-                        ),
-                        lineWidth: strokeWidth
-                    )
-            )
-            // Adds shadow for depth and elevation
-            .shadow(color: shadowColor.opacity(shadowOpacity), radius: shadowRadius, x: shadowX, y: shadowY)
+        if #available(iOS 26.0, macOS 26.0, watchOS 26.0, tvOS 26.0, visionOS 26.0, *) {
+            content
+                .background(material)
+                .glassEffect(in: .rect(cornerRadius: radius))
+                .cornerRadius(radius)
+                .shadow(color: shadowColor.opacity(shadowOpacity), radius: shadowRadius, x: shadowX, y: shadowY)
+        } else {
+            content
+                .background(material) // Use the specified material for the frosted glass base
+                .cornerRadius(radius) // Rounds the corners
+                .overlay(
+                    // Adds subtle gradient border for dimensional effect
+                    RoundedRectangle(cornerRadius: radius)
+                        .stroke(
+                            LinearGradient(
+                                gradient: Gradient(colors: gradientColors()),
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            ),
+                            lineWidth: strokeWidth
+                        )
+                )
+                // Adds shadow for depth and elevation
+                .shadow(color: shadowColor.opacity(shadowOpacity), radius: shadowRadius, x: shadowX, y: shadowY)
+        }
     }
     
     /// Generates the gradient colors based on the selected style

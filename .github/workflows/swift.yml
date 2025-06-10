@@ -10,6 +10,19 @@ on:
     branches: [ "main" ]
 
 jobs:
+  xcode-26:
+    runs-on: macos-26
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_26.app/Contents/Developer
+    steps:
+      - uses: actions/checkout@v4
+      - name: Version
+        run: swift --version
+      - name: Build
+        run: swift build -v
+      # - name: Test
+      #   run: swift test -v
+
   xcode-16-3:
     runs-on: macos-15
     env:
