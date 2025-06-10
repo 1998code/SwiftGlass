@@ -75,7 +75,7 @@ struct GlassFlowerRotate: View {
                 }
             }) {
                 Text(rotateToCenter ? "Reset Rotation" : "Rotate to Center")
-                    .foregroundColor(.primary)
+                    .foregroundColor(.white)
                     .padding(15)
             }
             .cornerRadius(8)
