@@ -72,7 +72,10 @@ public struct GlassBackgroundModifier: ViewModifier {
     public func body(content: Content) -> some View {
         if #available(iOS 26.0, macOS 26.0, watchOS 26.0, tvOS 26.0, visionOS 26.0, *) {
             content
-                .glassEffect()
+                .background(material)
+                .glassEffect(in: .rect(cornerRadius: radius))
+                .cornerRadius(radius)
+                .shadow(color: shadowColor.opacity(shadowOpacity), radius: shadowRadius, x: shadowX, y: shadowY)
         } else {
             content
                 .background(material) // Use the specified material for the frosted glass base
@@ -89,7 +92,7 @@ public struct GlassBackgroundModifier: ViewModifier {
                             lineWidth: strokeWidth
                         )
                 )
-            // Adds shadow for depth and elevation
+                // Adds shadow for depth and elevation
                 .shadow(color: shadowColor.opacity(shadowOpacity), radius: shadowRadius, x: shadowX, y: shadowY)
         }
     }
