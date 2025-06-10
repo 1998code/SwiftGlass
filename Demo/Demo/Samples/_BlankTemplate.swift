@@ -10,11 +10,18 @@ import SwiftGlass
 
 struct BlankTemplate: View {
     var body: some View {
-        VStack {
-            Text("Hello, Developer!")
+        ZStack {
+            bg
+            Text("Hello, Developer!")
+                .bold()
                 .padding(25)
                 .glass()
         }
+    }
+    
+    var bg: some View {
+        LinearGradient(colors: [Color.clear, Color.pink.opacity(0.85)], startPoint: .topLeading, endPoint: .bottomTrailing)
+            .ignoresSafeArea()
     }
 }
 
