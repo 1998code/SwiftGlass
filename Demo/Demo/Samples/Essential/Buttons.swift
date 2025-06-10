@@ -42,9 +42,7 @@ struct Buttons: View {
                                 }
                                 .padding(.vertical, 2)
                                 .accentColor(.primary)
-                            }
-                            .background(.primary.opacity(0.1))
-                            .glass(color: .primary, shadowColor: .primary.opacity(0.75))
+                            }.glass(color: .primary, shadowColor: .primary)
                         }
                     }
                     
@@ -52,14 +50,14 @@ struct Buttons: View {
                         if #available(iOS 26.0, macOS 26.0, watchOS 26.0, tvOS 26.0, visionOS 26.0, *) {
                             // No need to apply effect
                             EditButton()
+                                .tint(.blue)
                         } else {
                             EditButton()
                                 .bold()
                                 .padding(.vertical, 3)
                                 .padding(.leading, 5)
                                 .padding(.trailing, 11.5)
-                                .background(Color.accentColor.opacity(0.1))
-                                .glass(color: .accentColor, shadowColor: .accentColor)
+                                .glass(color: .blue, shadowColor: .blue)
                         }
                     }
                 }
@@ -73,8 +71,7 @@ struct Buttons: View {
                 .bold()
                 .padding(25)
                 .foregroundStyle(.red)
-        }.background(.red.opacity(0.1))
-        .glass(color: .red, shadowColor: .red)
+        }.glass(color: .red.opacity(0.1), shadowColor: .red)
     }
 }
 

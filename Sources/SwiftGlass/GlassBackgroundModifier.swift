@@ -72,12 +72,12 @@ public struct GlassBackgroundModifier: ViewModifier {
     public func body(content: Content) -> some View {
         if #available(iOS 26.0, macOS 26.0, watchOS 26.0, tvOS 26.0, visionOS 26.0, *) {
             content
-//                .background(material)
                 .glassEffect(.regular.tint(color).interactive(), in: .rect(cornerRadius: radius))
                 .cornerRadius(radius)
                 .shadow(color: shadowColor.opacity(shadowOpacity), radius: shadowRadius, x: shadowX, y: shadowY)
         } else {
             content
+                .background(color.opacity(0.1))
                 .background(material) // Use the specified material for the frosted glass base
                 .cornerRadius(radius) // Rounds the corners
                 .overlay(
@@ -104,16 +104,16 @@ public struct GlassBackgroundModifier: ViewModifier {
         case .normal:
             return [
                 color.opacity(gradientOpacity),
-                .clear,
-                .clear,
+                color.opacity(gradientOpacity).opacity(0.2),
+                color.opacity(gradientOpacity).opacity(0.2),
                 color.opacity(gradientOpacity)
             ]
         case .reverted:
             return [
-                .clear,
+                color.opacity(gradientOpacity).opacity(0.2),
                 color.opacity(gradientOpacity),
                 color.opacity(gradientOpacity),
-                .clear
+                color.opacity(gradientOpacity).opacity(0.2),
             ]
         }
     }
