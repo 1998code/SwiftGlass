@@ -43,7 +43,10 @@ struct GlassFlower: View {
                             endPoint: .top
                         )
                     )
-                    .conditionalGlass()
+                
+                    // Apply glass effect from SwiftGlass library to create translucent look
+                    .glass(color: colors[index % colors.count])
+                
                     .frame(width: 55, height: 100) // Petal dimensions
                     .offset(x: 0, y: 0) // Position petals away from center
                     .rotationEffect(.degrees(Double(index) * 45), anchor: .bottom) // Distribute evenly in 360° (8×45°)
