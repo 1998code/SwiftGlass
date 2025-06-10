@@ -16,29 +16,51 @@ struct Buttons: View {
 #if !os(watchOS)
                 .toolbar {
                     ToolbarItemGroup(placement: .navigationBarLeading) {
-                        Button(action: {}) {
-                            HStack(spacing: 3) {
-                                Image(systemName: "chevron.left")
-                                    .font(.caption)
-                                    .padding(.leading, 6)
-                                Text("Back")
-                                    .bold()
-                                    .padding(.trailing, 1.5)
+                        if #available(iOS 26.0, macOS 26.0, watchOS 26.0, tvOS 26.0, visionOS 26.0, *) {
+                            // No need to apply effect
+                            Button(action: {}) {
+                                HStack(spacing: 3) {
+                                    Image(systemName: "chevron.left")
+                                        .font(.caption)
+                                        .padding(.leading, 6)
+                                    Text("Back")
+                                        .bold()
+                                        .padding(.trailing, 8)
+                                }
+                                .padding(.vertical, 2)
+                                .accentColor(.primary)
                             }
-                            .padding(.vertical, 2)
-                            .accentColor(.primary)
-                        }.background(.primary.opacity(0.1))
-                        .glass(color: .primary, shadowColor: .primary.opacity(0.75))
+                        } else {
+                            Button(action: {}) {
+                                HStack(spacing: 3) {
+                                    Image(systemName: "chevron.left")
+                                        .font(.caption)
+                                        .padding(.leading, 6)
+                                    Text("Back")
+                                        .bold()
+                                        .padding(.trailing, 1.5)
+                                }
+                                .padding(.vertical, 2)
+                                .accentColor(.primary)
+                            }
+                            .background(.primary.opacity(0.1))
+                            .glass(color: .primary, shadowColor: .primary.opacity(0.75))
+                        }
                     }
                     
                     ToolbarItemGroup(placement: .navigationBarTrailing) {
-                        EditButton()
-                            .bold()
-                            .padding(.vertical, 3)
-                            .padding(.leading, 5)
-                            .padding(.trailing, 11.5)
-                            .background(Color.accentColor.opacity(0.1))
-                            .glass(color: .accentColor, shadowColor: .accentColor)
+                        if #available(iOS 26.0, macOS 26.0, watchOS 26.0, tvOS 26.0, visionOS 26.0, *) {
+                            // No need to apply effect
+                            EditButton()
+                        } else {
+                            EditButton()
+                                .bold()
+                                .padding(.vertical, 3)
+                                .padding(.leading, 5)
+                                .padding(.trailing, 11.5)
+                                .background(Color.accentColor.opacity(0.1))
+                                .glass(color: .accentColor, shadowColor: .accentColor)
+                        }
                     }
                 }
 #endif
