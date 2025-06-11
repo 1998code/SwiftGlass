@@ -83,7 +83,9 @@ public struct GlassBackgroundModifier: ViewModifier {
                     .tint(color)
             } else {
                 content
+                    #if !os(visionOS)
                     .glassEffect(.regular.tint(color.opacity(colorOpacity)).interactive(), in: .rect(cornerRadius: radius))
+                    #endif
                     .cornerRadius(radius)
                     .shadow(color: shadowColor.opacity(shadowOpacity), radius: shadowRadius, x: shadowX, y: shadowY)
             }
