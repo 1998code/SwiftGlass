@@ -46,8 +46,7 @@ struct Basic: View {
                     Text("HOME")
                         .font(.largeTitle)
                         .fontWeight(.heavy)
-                        .foregroundStyle(.white)
-                        .shadow(color: .white, radius: 3)
+                        .foregroundStyle(.primary)
                 }
                 
 #if !os(watchOS)

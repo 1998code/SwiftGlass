@@ -34,21 +34,23 @@ public struct GlassBackgroundModifier: ViewModifier {
     let shadowRadius: CGFloat
     let shadowX: CGFloat
     let shadowY: CGFloat
+    let isInToolbar: Bool
     
     /// Creates a new glass effect modifier with the specified appearance settings
     public init(
         displayMode: GlassBackgroundDisplayMode,
         radius: CGFloat,
         color: Color,
-        material: Material = .ultraThinMaterial,
-        gradientOpacity: Double = 0.5,
-        gradientStyle: GradientStyle = .normal,
-        strokeWidth: CGFloat = 1.5,
-        shadowColor: Color = .white,
-        shadowOpacity: Double = 0.5,
-        shadowRadius: CGFloat? = nil,
-        shadowX: CGFloat = 0,
-        shadowY: CGFloat = 5
+        material: Material,
+        gradientOpacity: Double,
+        gradientStyle: GradientStyle,
+        strokeWidth: CGFloat,
+        shadowColor: Color,
+        shadowOpacity: Double,
+        shadowRadius: CGFloat?,
+        shadowX: CGFloat,
+        shadowY: CGFloat,
+        isInToolbar: Bool
     ) {
         self.displayMode = displayMode
         self.radius = radius
@@ -62,6 +64,7 @@ public struct GlassBackgroundModifier: ViewModifier {
         self.shadowRadius = shadowRadius ?? radius
         self.shadowX = shadowX
         self.shadowY = shadowY
+        self.isInToolbar = isInToolbar
     }
     
     /// Applies the glass effect to the content view
@@ -71,10 +74,16 @@ public struct GlassBackgroundModifier: ViewModifier {
     /// 3. Shadow for depth perception
     public func body(content: Content) -> some View {
         if #available(iOS 26.0, macOS 26.0, watchOS 26.0, tvOS 26.0, visionOS 26.0, *) {
-            content
-                .glassEffect(.regular.tint(color).interactive(), in: .rect(cornerRadius: radius))
-                .cornerRadius(radius)
-                .shadow(color: shadowColor.opacity(shadowOpacity), radius: shadowRadius, x: shadowX, y: shadowY)
+            // Check if content is in a toolbar context
+            if isInToolbar {
+                content
+                    .tint(color)
+            } else {
+                content
+                    .glassEffect(.regular.tint(color.opacity(0.1)).interactive(), in: .rect(cornerRadius: radius))
+                    .cornerRadius(radius)
+                    .shadow(color: shadowColor.opacity(shadowOpacity), radius: shadowRadius, x: shadowX, y: shadowY)
+            }
         } else {
             content
                 .background(color.opacity(0.1))

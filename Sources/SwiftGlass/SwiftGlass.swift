@@ -40,16 +40,37 @@ public extension View {
     func glass(
         displayMode: GlassBackgroundModifier.GlassBackgroundDisplayMode = .always,
         radius: CGFloat = 32,
-        color: Color = .white,
+        color: Color = {
+            #if os(iOS) || os(tvOS)
+            return Color(UIColor.systemBackground)
+            #elseif os(watchOS)
+            return Color(UIColor.black)
+            #elseif os(macOS)
+            return Color(NSColor.controlBackgroundColor)
+            #else
+            return Color.primary
+            #endif
+        }(),
         material: Material = .ultraThinMaterial,
         gradientOpacity: Double = 0.5,
         gradientStyle: GlassBackgroundModifier.GradientStyle = .normal,
         strokeWidth: CGFloat = 1.5,
-        shadowColor: Color = .white,
+        shadowColor: Color = {
+            #if os(iOS) || os(tvOS)
+            return Color(UIColor.systemBackground)
+            #elseif os(watchOS)
+            return Color(UIColor.black)
+            #elseif os(macOS)
+            return Color(NSColor.controlBackgroundColor)
+            #else
+            return Color.primary
+            #endif
+        }(),
         shadowOpacity: Double = 0.5,
         shadowRadius: CGFloat? = nil,
         shadowX: CGFloat = 0,
-        shadowY: CGFloat = 5
+        shadowY: CGFloat = 5,
+        isInToolbar: Bool = false
     ) -> some View {
         #if os(visionOS)
         // Use the native glass effect on visionOS for optimal rendering and system integration
@@ -68,7 +89,8 @@ public extension View {
             shadowOpacity: shadowOpacity,
             shadowRadius: shadowRadius,
             shadowX: shadowX,
-            shadowY: shadowY
+            shadowY: shadowY,
+            isInToolbar: isInToolbar
         ))
         #endif
     }

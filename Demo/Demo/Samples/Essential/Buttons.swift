@@ -13,55 +13,34 @@ struct Buttons: View {
         NavigationStack {
             deleteButton
             
-#if !os(watchOS)
+                #if !os(watchOS)
                 .toolbar {
                     ToolbarItemGroup(placement: .navigationBarLeading) {
-                        if #available(iOS 26.0, macOS 26.0, watchOS 26.0, tvOS 26.0, visionOS 26.0, *) {
-                            // No need to apply effect
-                            Button(action: {}) {
-                                HStack(spacing: 3) {
-                                    Image(systemName: "chevron.left")
-                                        .font(.caption)
-                                        .padding(.leading, 6)
-                                    Text("Back")
-                                        .bold()
-                                        .padding(.trailing, 8)
-                                }
-                                .padding(.vertical, 2)
-                                .accentColor(.primary)
+                        Button(action: {}) {
+                            HStack(spacing: 3) {
+                                Image(systemName: "chevron.left")
+                                    .font(.caption)
+                                    .padding(.leading, 6)
+                                Text("Back")
+                                    .bold()
+                                    .padding(.trailing, 5)
                             }
-                        } else {
-                            Button(action: {}) {
-                                HStack(spacing: 3) {
-                                    Image(systemName: "chevron.left")
-                                        .font(.caption)
-                                        .padding(.leading, 6)
-                                    Text("Back")
-                                        .bold()
-                                        .padding(.trailing, 1.5)
-                                }
-                                .padding(.vertical, 2)
-                                .accentColor(.primary)
-                            }.glass(color: .primary, shadowColor: .primary)
+                            .padding(.vertical, 2)
+                            .accentColor(.primary)
                         }
+                        .glass(color: .primary, shadowColor: .primary, isInToolbar: true)
                     }
                     
                     ToolbarItemGroup(placement: .navigationBarTrailing) {
-                        if #available(iOS 26.0, macOS 26.0, watchOS 26.0, tvOS 26.0, visionOS 26.0, *) {
-                            // No need to apply effect
-                            EditButton()
-                                .tint(.blue)
-                        } else {
-                            EditButton()
-                                .bold()
-                                .padding(.vertical, 3)
-                                .padding(.leading, 5)
-                                .padding(.trailing, 11.5)
-                                .glass(color: .blue, shadowColor: .blue)
-                        }
+                        EditButton()
+                            .bold()
+                            .padding(.vertical, 3)
+                            .padding(.leading, 5)
+                            .padding(.trailing, 11.5)
+                            .glass(color: .blue, shadowColor: .blue, isInToolbar: true)
                     }
                 }
-#endif
+                #endif
         }
     }
     

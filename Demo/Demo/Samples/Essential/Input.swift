@@ -19,13 +19,9 @@ struct Input: View {
             .font(.largeTitle)
             .textFieldStyle(.plain)
             .padding(25)
-            .background(
-                Color.accentColor
-                    .opacity(focus ? 0.3 : 0.05)
-            )
             .glass(
-                color: focus ? .accentColor : .white,
-                shadowColor: focus ? .accentColor : .white
+                color: focus ? .accentColor : .primary,
+                shadowColor: focus ? .accentColor : .primary
             )
             .padding(50)
 
@@ -34,8 +30,12 @@ struct Input: View {
 }
 
 @available(iOS 17.0, *)
+#Preview("Light", traits: .landscapeLeft) {
+    Input()
+}
+
+@available(iOS 17.0, *)
 #Preview("Dark", traits: .landscapeLeft) {
     Input()
         .preferredColorScheme(.dark)
-        
 }

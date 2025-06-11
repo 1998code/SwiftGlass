@@ -125,21 +125,24 @@ SwiftGlass offers extensive customization options:
 |---|---|---|---|
 | `displayMode` | `.always` or `.automatic` | `.always` | Controls when the effect is displayed |
 | `radius` | `CGFloat` | `32` | Corner radius of the glass effect |
-| `color` | `Color` | `.white` | Base color for gradient and highlights |
+| `color` | `Color` | System background color | Base color for gradient and highlights |
 | `material` | `Material` | `.ultraThinMaterial` | SwiftUI material style |
 | `gradientOpacity` | `Double` | `0.5` | Opacity level for the gradient overlay |
 | `gradientStyle` | `.normal` or `.reverted` | `.normal` | Direction style of the gradient |
 | `strokeWidth` | `CGFloat` | `1.5` | Width of the border stroke |
-| `shadowColor` | `Color` | `.white` | Color of the drop shadow |
+| `shadowColor` | `Color` | System background color | Color of the drop shadow |
 | `shadowOpacity` | `Double` | `0.5` | Opacity level for the shadow |
 | `shadowRadius` | `CGFloat?` | `nil` | Blur radius for the shadow |
 | `shadowX` | `CGFloat` | `0` | Horizontal offset of the shadow |
 | `shadowY` | `CGFloat` | `5` | Vertical offset of the shadow |
+| `isInToolbar` | `Bool` | `false` | Optimizes rendering when used in toolbars (iOS 26+) |
 
 ## Platform-Specific Notes
 
 - **visionOS**: On visionOS, SwiftGlass uses the native `.glassBackgroundEffect()` for optimal rendering and system integration
+- **iOS 26+ / macOS 26+**: Uses native `.glassEffect()` API with enhanced toolbar support
 - **Other platforms**: A custom implementation combines materials, gradients, and shadows to achieve a similar effect
+- **Cross-platform colors**: Shadow and base colors automatically adapt to system background colors on each platform
 
 ## Contributing
 

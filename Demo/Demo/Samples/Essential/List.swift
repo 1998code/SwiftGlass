@@ -17,7 +17,7 @@ struct DefaultList: View {
                     .foregroundStyle(option.color)
                     .listRowBackground(
                         option.color.opacity(0.1)
-                            .glass(radius: 10, color: option.color, shadowColor: option.color)
+                            .glass(color: option.color, shadowColor: option.color)
                             .padding(1)
                     )
             }
@@ -39,7 +39,7 @@ struct DefaultListAnimate: View {
                     .foregroundStyle(option.color)
                     .listRowBackground(
                         option.color.opacity(0.1)
-                            .glass(radius: 10, color: option.color, shadowColor: option.color)
+                            .glass(color: option.color, shadowColor: option.color)
                             .padding(1)
                     )
                     .opacity(visibleItems.contains(option.name) ? 1 : 0)
@@ -67,7 +67,7 @@ struct InsetList: View {
                     .foregroundStyle(option.color)
                     .listRowBackground(
                         option.color.opacity(0.1)
-                            .glass(radius: 15, color: option.color, shadowColor: option.color, shadowRadius: 1)
+                            .glass(color: option.color, shadowColor: option.color, shadowRadius: 1)
                             .padding(2)
                     )
                     .listRowSeparator(.hidden)
@@ -92,7 +92,7 @@ struct InsetListAnimate: View {
                     .foregroundStyle(option.color)
                     .listRowBackground(
                         option.color.opacity(0.1)
-                            .glass(radius: 15, color: option.color, shadowColor: option.color, shadowRadius: 1)
+                            .glass(color: option.color, shadowColor: option.color, shadowRadius: 1)
                             .padding(2)
                     )
 #if !os(watchOS)
