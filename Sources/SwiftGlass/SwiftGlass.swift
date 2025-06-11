@@ -51,6 +51,7 @@ public extension View {
             return Color.primary
             #endif
         }(),
+        colorOpacity: Double = 0.1,
         material: Material = .ultraThinMaterial,
         gradientOpacity: Double = 0.5,
         gradientStyle: GlassBackgroundModifier.GradientStyle = .normal,
@@ -81,6 +82,7 @@ public extension View {
             displayMode: displayMode,
             radius: radius,
             color: color,
+            colorOpacity: colorOpacity,
             material: material,
             gradientOpacity: gradientOpacity,
             gradientStyle: gradientStyle,

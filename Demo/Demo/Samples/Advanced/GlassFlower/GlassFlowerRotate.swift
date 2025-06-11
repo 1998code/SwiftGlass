@@ -47,7 +47,7 @@ struct GlassFlowerRotate: View {
                     )
                 
                     // Apply glass effect from SwiftGlass library to create translucent look
-                    .glass(color: colors[index % colors.count])
+                    .glass(color: colors[index % colors.count], colorOpacity: 1, shadowColor: .white)
                 
                     .frame(width: 55, height: 100) // Petal dimensions
                     .offset(x: 0, y: 0) // Position petals away from center

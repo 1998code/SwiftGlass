@@ -25,6 +25,7 @@ public struct GlassBackgroundModifier: ViewModifier {
     let displayMode: GlassBackgroundDisplayMode
     let radius: CGFloat
     let color: Color
+    let colorOpacity: Double
     let material: Material
     let gradientOpacity: Double
     let gradientStyle: GradientStyle
@@ -41,6 +42,7 @@ public struct GlassBackgroundModifier: ViewModifier {
         displayMode: GlassBackgroundDisplayMode,
         radius: CGFloat,
         color: Color,
+        colorOpacity: Double,
         material: Material,
         gradientOpacity: Double,
         gradientStyle: GradientStyle,
@@ -55,6 +57,7 @@ public struct GlassBackgroundModifier: ViewModifier {
         self.displayMode = displayMode
         self.radius = radius
         self.color = color
+        self.colorOpacity = colorOpacity
         self.material = material
         self.gradientOpacity = gradientOpacity
         self.gradientStyle = gradientStyle
@@ -80,13 +83,13 @@ public struct GlassBackgroundModifier: ViewModifier {
                     .tint(color)
             } else {
                 content
-                    .glassEffect(.regular.tint(color.opacity(0.1)).interactive(), in: .rect(cornerRadius: radius))
+                    .glassEffect(.regular.tint(color.opacity(colorOpacity)).interactive(), in: .rect(cornerRadius: radius))
                     .cornerRadius(radius)
                     .shadow(color: shadowColor.opacity(shadowOpacity), radius: shadowRadius, x: shadowX, y: shadowY)
             }
         } else {
             content
-                .background(color.opacity(0.1))
+                .background(color.opacity(colorOpacity))
                 .background(material) // Use the specified material for the frosted glass base
                 .cornerRadius(radius) // Rounds the corners
                 .overlay(

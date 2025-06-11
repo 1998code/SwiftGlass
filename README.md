@@ -126,6 +126,7 @@ SwiftGlass offers extensive customization options:
 | `displayMode` | `.always` or `.automatic` | `.always` | Controls when the effect is displayed |
 | `radius` | `CGFloat` | `32` | Corner radius of the glass effect |
 | `color` | `Color` | System background color | Base color for gradient and highlights |
+| `colorOpacity` | `Double` | `0.1` | Opacity level for the base color |
 | `material` | `Material` | `.ultraThinMaterial` | SwiftUI material style |
 | `gradientOpacity` | `Double` | `0.5` | Opacity level for the gradient overlay |
 | `gradientStyle` | `.normal` or `.reverted` | `.normal` | Direction style of the gradient |
