@@ -20,7 +20,7 @@ struct Input: View {
             .textFieldStyle(.plain)
             .padding(25)
             .glass(
-                color: focus ? .accentColor : .primary,
+                color: focus ? .accentColor : .white,
                 shadowColor: focus ? .accentColor : .primary
             )
             .padding(50)

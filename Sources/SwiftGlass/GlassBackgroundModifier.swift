@@ -76,20 +76,51 @@ public struct GlassBackgroundModifier: ViewModifier {
     /// 2. Gradient stroke for edge highlighting
     /// 3. Shadow for depth perception
     public func body(content: Content) -> some View {
+        #if swift(>=6.0) && canImport(SwiftUI, _version: 6.0)
+        // Use new glass effect APIs available in newer Xcode/Swift versions
         if #available(iOS 26.0, macOS 26.0, watchOS 26.0, tvOS 26.0, visionOS 26.0, *) {
             // Check if content is in a toolbar context
             if isInToolbar {
-                content
-                    .tint(color)
+                AnyView(
+                    content
+                        .tint(color)
+                )
             } else {
-                content
-                    #if !os(visionOS)
-                    .glassEffect(.regular.tint(color.opacity(colorOpacity)).interactive(), in: .rect(cornerRadius: radius))
-                    #endif
-                    .cornerRadius(radius)
-                    .shadow(color: shadowColor.opacity(shadowOpacity), radius: shadowRadius, x: shadowX, y: shadowY)
+                AnyView(
+                    content
+                        #if !os(visionOS)
+                        .glassEffect(.regular.tint(color.opacity(colorOpacity)).interactive(), in: .rect(cornerRadius: radius))
+                        #else
+                        .background(color.opacity(colorOpacity))
+                        .background(material)
+                        .cornerRadius(radius)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: radius)
+                                .stroke(
+                                    LinearGradient(
+                                        gradient: Gradient(colors: gradientColors()),
+                                        startPoint: .topLeading,
+                                        endPoint: .bottomTrailing
+                                    ),
+                                    lineWidth: strokeWidth
+                                )
+                        )
+                        #endif
+                        .shadow(color: shadowColor.opacity(shadowOpacity), radius: shadowRadius, x: shadowX, y: shadowY)
+                )
             }
         } else {
+            AnyView(fallbackGlassEffect(content: content))
+        }
+        #else
+        // Fallback for older Xcode versions (16.4 and earlier)
+        AnyView(fallbackGlassEffect(content: content))
+        #endif
+    }
+    
+    /// Fallback glass effect implementation for older Xcode versions
+    private func fallbackGlassEffect(content: Content) -> AnyView {
+        return AnyView(
             content
                 .background(color.opacity(colorOpacity))
                 .background(material) // Use the specified material for the frosted glass base
@@ -108,7 +139,7 @@ public struct GlassBackgroundModifier: ViewModifier {
                 )
                 // Adds shadow for depth and elevation
                 .shadow(color: shadowColor.opacity(shadowOpacity), radius: shadowRadius, x: shadowX, y: shadowY)
-        }
+        )
     }
     
     /// Generates the gradient colors based on the selected style
