@@ -40,17 +40,7 @@ public extension View {
     func glass(
         displayMode: GlassBackgroundModifier.GlassBackgroundDisplayMode = .always,
         radius: CGFloat = 32,
-        color: Color = {
-            #if os(iOS) || os(tvOS)
-            return Color(UIColor.systemBackground)
-            #elseif os(watchOS)
-            return Color(UIColor.black)
-            #elseif os(macOS)
-            return Color(NSColor.controlBackgroundColor)
-            #else
-            return Color.primary
-            #endif
-        }(),
+        color: Color = .white,
         colorOpacity: Double = 0.1,
         material: Material = .ultraThinMaterial,
         gradientOpacity: Double = 0.5,
