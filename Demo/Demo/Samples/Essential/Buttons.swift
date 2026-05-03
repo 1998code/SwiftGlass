@@ -12,7 +12,6 @@ struct Buttons: View {
     var body: some View {
         NavigationStack {
             deleteButton
-            
                 #if !os(watchOS)
                 .toolbar {
                     ToolbarItemGroup(placement: .navigationBarLeading) {
